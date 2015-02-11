@@ -7,4 +7,4 @@ The idea is to copy&paste the code or just use the file instead - who said code 
 
 ## Technology
 
-- [.NET]()
+- [.NET](./NET/readme.md)
