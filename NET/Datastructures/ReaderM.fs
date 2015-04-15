@@ -59,11 +59,22 @@ module Reader =
             |> run conf 
         }
 
+    let tryWith (m : ReaderM<'conf, 'a>) (onEx : exn -> ReaderM<'conf, 'a>) =
+        { compute = fun conf ->
+            try
+                m.compute conf
+            with
+            | _ as error ->
+                onEx error 
+                |> run conf
+        }
+
     type ReaderMBuilder internal () =
-        member __.Bind(m, f)    = bind f m
-        member __.Return(v)     = constant v
-        member __.ReturnFrom(v) = v
-        member __.Delay(f)      = f ()
+        member __.Bind(m, f)        = bind f m
+        member __.Return(v)         = constant v
+        member __.ReturnFrom(v)     = v
+        member __.Delay(f)          = f ()
+        member __.TryWith (m, onEx) = tryWith m onEx
 
     let Do = ReaderMBuilder()
 
