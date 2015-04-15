@@ -4,6 +4,10 @@ Frequently used datastructures for .net
 
 ## Contents:
 
-### unstable
+### experimental
 
 - [LazyList](./LazyList.fs)
+
+### stable
+
+- [Reader Monad](./ReaderM.fs)
